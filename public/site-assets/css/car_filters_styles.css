@@ -1,0 +1,383 @@
+body {
+    background-color: #F6F7F9 !important;
+}
+
+/* استایل‌های اسلایدر بهبود یافته */
+.range-slider-wrapper {
+    margin: 20px 0;
+    position: relative;
+}
+
+.range-slider {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    position: relative;
+    margin: 30px 0;
+}
+
+.range-slider .noUi-connect {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    height: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+}
+
+.range-slider .noUi-handle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #2563eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+    top: -8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.range-slider .noUi-handle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.range-slider .noUi-handle:active {
+    cursor: grabbing;
+    transform: scale(1.15);
+}
+
+.range-slider .noUi-handle:before,
+.range-slider .noUi-handle:after {
+    display: none;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    position: relative;
+}
+
+.range-value {
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    min-width: 100px;
+    text-align: center;
+    position: relative;
+}
+
+.range-value.min {
+    margin-right: 15px;
+}
+
+.range-value.max {
+    margin-left: 15px;
+}
+
+.range-value::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e5e7eb;
+}
+
+.range-value::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #f3f4f6;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.range-label {
+    text-align: center;
+}
+
+.range-label.min {
+    margin-right: 15px;
+}
+
+.range-label.max {
+    margin-left: 15px;
+}
+
+/* استایل‌های اسپاسان بولین */
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2563eb;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2563eb;
+}
+
+input:checked+.slider:before {
+    transform: translateX(24px);
+}
+
+/* استایل‌های آکاردئون */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.accordion-filter.active .accordion-content {
+    max-height: 500px;
+}
+
+.accordion-filter.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+/* استایل‌های کارت ماشین */
+.car-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* بهبود نمایش در دستگاه‌های کوچک */
+@media (max-width: 768px) {
+    .car-attributes {
+        font-size: 0.8rem;
+    }
+
+    .car-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .car-actions button {
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .range-value {
+        min-width: 80px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+.car-title {
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.car-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 10px;
+}
+
+.car-card-footer small {
+    font-size: 12px;
+}
+
+.card-card-amount {
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+span.attribute-name {
+    font-size: 12px;
+}
+
+/* استایل‌های بخش مرتب‌سازی */
+.sort-option.active span {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+}
+
+.sort-option input:checked + span {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+}
+
+
+
+/* استایل‌های بخش مرتب‌سازی ریسپانسیو */
+.sort-option.active span {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2), 0 2px 4px -1px rgba(59, 130, 246, 0.06);
+}
+
+.sort-option input:checked + span {
+    background-color: #3b82f6 !important;
+    color: white !important;
+    border-color: #3b82f6 !important;
+}
+
+/* استایل‌های موبایل */
+@media (max-width: 1023px) {
+    .sort-container-mobile {
+        position: relative;
+    }
+
+    #mobileSortSelect {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: left 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 16px 12px;
+        padding-right: 2.5rem;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+/* انیمیشن‌های مدرن */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* بهبود استایل برای تاچ اسکرین */
+@media (max-width: 768px) {
+    .sort-option span {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    #mobileActiveSort {
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+/* استایل برای حالت loading */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* استایل برای سایه‌ها و عمق */
+.shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* بهبود grid برای نمایش بهتر در موبایل */
+@media (max-width: 640px) {
+    #carsContainer {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+    #carsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #carsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #carsContainer {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 1281px) {
+    #carsContainer {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+}

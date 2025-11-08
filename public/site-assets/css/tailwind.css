@@ -1,0 +1,6 @@
+@layer utilities {
+    .content-auto {
+        content-visibility: auto;
+    }
+}
+
