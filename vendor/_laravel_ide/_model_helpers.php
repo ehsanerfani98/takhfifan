@@ -328,6 +328,8 @@ namespace App\Models {
      * @property-read int|null $values_count
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CarAttributeValue> $carValues
      * @property-read int|null $carValues_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Brand> $brands
+     * @property-read int|null $brands_count
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attribute>|Attribute whereSlug($value)
@@ -1266,6 +1268,8 @@ namespace App\Models {
      * @property int $id
      * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CarModel> $carModels
      * @property-read int|null $carModels_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Attribute> $attributes
+     * @property-read int|null $attributes_count
      * @method static \Illuminate\Database\Eloquent\Builder<Brand>|Brand whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Brand>|Brand whereTitle($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Brand>|Brand whereIcon($value)

@@ -145,7 +145,7 @@ class CarController extends Controller
     public function edit(Car $car)
     {
         $users = User::with('document')->role('advisor')->get();
-        $attributes = Attribute::with('values')->orderBy('sort_order')->get();
+        $attributes = collect(); // Empty collection, will be loaded dynamically based on brand selection
         $carFiles = CarFile::with('items')->get();
         $brands = Brand::get();
 

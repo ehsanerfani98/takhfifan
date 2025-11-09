@@ -517,6 +517,103 @@
                 container.html(makeValueInput(rowKey, attr));
             });
 
+            // مدیریت تغییر برند - بارگذاری ویژگی‌ها
+            $('#brand_id').change(function() {
+                var brandId = $(this).val();
+                var $modelSelect = $('#car_model_id');
+
+                if (brandId) {
+                    // نمایش loading
+                    $modelSelect.html('<option value="">در حال بارگذاری...</option>');
+
+                    // درخواست AJAX برای دریافت مدل‌ها
+                    $.ajax({
+                        url: '{{ route('brands.models', ':brand') }}'.replace(':brand', brandId),
+                        type: 'GET',
+                        success: function(data) {
+                            $modelSelect.html('<option value="">انتخاب مدل</option>');
+                            $.each(data, function(key, model) {
+                                $modelSelect.append(
+                                    '<option value="' + model.id + '">' + model
+                                    .title + '</option>'
+                                );
+                            });
+                        },
+                        error: function() {
+                            $modelSelect.html('<option value="">خطا در بارگذاری</option>');
+                        }
+                    });
+
+                    // درخواست AJAX برای دریافت ویژگی‌های برند
+                    $.ajax({
+                        url: '/api/brands/' + brandId + '/attributes',
+                        type: 'GET',
+                        success: function(data) {
+                            // به‌روزرسانی متغیر global attributes
+                            attributes = data;
+
+                            // پاک کردن کانتینر ویژگی‌ها
+                            $("#attributes-container").html('');
+
+                            // اگر ویژگی‌هایی وجود داشت، یک ردیف خالی اضافه کن
+                            if (attributes.length > 0) {
+                                addAttributeRow();
+                            } else {
+                                $("#attributes-container").html('<p class="text-muted">هیچ ویژگی برای این برند تعریف نشده است.</p>');
+                            }
+                        },
+                        error: function() {
+                            console.error('خطا در بارگذاری ویژگی‌ها');
+                            $("#attributes-container").html('<p class="text-danger">خطا در بارگذاری ویژگی‌ها</p>');
+                        }
+                    });
+                } else {
+                    $modelSelect.html('<option value="">ابتدا برند را انتخاب کنید</option>');
+                    $("#attributes-container").html('');
+                    attributes = [];
+                }
+            });
+
+            // بارگذاری اولیه ویژگی‌ها بر اساس برند فعلی
+            $(document).ready(function() {
+                var currentBrandId = $('#brand_id').val();
+                if (currentBrandId) {
+                    // درخواست AJAX برای دریافت ویژگی‌های برند فعلی
+                    $.ajax({
+                        url: '/api/brands/' + currentBrandId + '/attributes',
+                        type: 'GET',
+                        success: function(data) {
+                            // به‌روزرسانی متغیر global attributes
+                            attributes = data;
+
+                            // پاک کردن کانتینر ویژگی‌ها
+                            $("#attributes-container").html('');
+
+                            // بارگذاری ویژگی‌های قبلی خودرو
+                            carAttributes.forEach(function(attr) {
+                                let value = attr.attribute_value_id ?? attr.value_string ?? attr.value_number ?? (attr
+                                    .value_boolean !== null ? (attr.value_boolean ? '1' : '0') : null);
+                                let label = attr.value_boolean_label;
+                                addAttributeRow({
+                                    attribute_id: attr.attribute_id,
+                                    value: value,
+                                    value_boolean_label: label
+                                });
+                            });
+
+                            // اگر هیچ ویژگی قبلی وجود نداشت و ویژگی‌هایی برای برند موجود است، یک ردیف خالی اضافه کن
+                            if (carAttributes.length === 0 && attributes.length > 0) {
+                                addAttributeRow();
+                            }
+                        },
+                        error: function() {
+                            console.error('خطا در بارگذاری ویژگی‌ها');
+                            $("#attributes-container").html('<p class="text-danger">خطا در بارگذاری ویژگی‌ها</p>');
+                        }
+                    });
+                }
+            });
+
             $(document).on('click', '.boolean-label', function() {
                 let label = $(this);
                 let currentText = label.text();
@@ -548,36 +645,6 @@
                 });
             });
 
-            // مدیریت تغییر برند
-            $('#brand_id').change(function() {
-                var brandId = $(this).val();
-                var $modelSelect = $('#car_model_id');
-
-                if (brandId) {
-                    // نمایش loading
-                    $modelSelect.html('<option value="">در حال بارگذاری...</option>');
-
-                    // درخواست AJAX برای دریافت مدل‌ها
-                    $.ajax({
-                        url: '{{ route('brands.models', ':brand') }}'.replace(':brand', brandId),
-                        type: 'GET',
-                        success: function(data) {
-                            $modelSelect.html('<option value="">انتخاب مدل</option>');
-                            $.each(data, function(key, model) {
-                                $modelSelect.append(
-                                    '<option value="' + model.id + '">' + model
-                                    .title + '</option>'
-                                );
-                            });
-                        },
-                        error: function() {
-                            $modelSelect.html('<option value="">خطا در بارگذاری</option>');
-                        }
-                    });
-                } else {
-                    $modelSelect.html('<option value="">ابتدا برند را انتخاب کنید</option>');
-                }
-            });
 
         });
     </script>
